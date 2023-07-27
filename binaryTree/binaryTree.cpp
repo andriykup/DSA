@@ -1,4 +1,5 @@
 #include<iostream>
+#define SPACE 10
 
 class TreeNode{
     public:
@@ -21,7 +22,9 @@ class TreeNode{
 class BST{
     public:
         TreeNode *root;
-
+        BST(){
+            root = NULL;
+        }
         bool isEmpty(){
             if(root == NULL){
                 return true;
@@ -29,10 +32,54 @@ class BST{
                 return false;
             }
         }
+
+        void print2D(TreeNode *r, int space){
+            if (r == NULL)
+                return;
+            space += SPACE;
+            print2D(r->right, space);
+            std::cout << std::endl;
+            for (int i = SPACE; i < space; i++){
+                std::cout << " ";
+            } 
+            std::cout << r->value << "\n";
+            print2D(r->left, space);
+        }
+
+        void insertNode(TreeNode *new_node){
+            if(root == NULL){
+                root = new_node;
+                std::cout << "Value inserted as root node." << std::endl;
+            }else{
+                TreeNode *temp = root;
+                while(temp != NULL){
+                    if(new_node->value == temp->value){
+                        std::cout << "Value already exist,"
+                        << "please insert another value." << std::endl;
+                        return;
+                    }else if((new_node->value < temp->value) && (temp->left == NULL)){
+                        temp->left = new_node;
+                        std::cout << "Value inserted to the left." << std::endl;
+                        break;
+                    }else if(new_node->value < temp->value){
+                        temp = temp->left;
+                    }else if((new_node->value > temp->value) && (temp->right == NULL)){
+                        temp->right = new_node;
+                        std::cout << "Value inserted to the right." << std::endl;
+                        break;
+                    }else{
+                        temp = temp->right;
+                    }
+                }
+            }
+        }
 };
 
+
+
 int main(){
-    int option;
+    BST obj;
+    int option, val;
     
     do{
         std::cout << "What operation do you want to perform?:" << std::endl;
@@ -46,12 +93,19 @@ int main(){
 
         std::cin >> option;
 
+        //creating NODE n1
+        TreeNode *new_node = new TreeNode();
+
         switch(option){
             case 0:
                 break;
             case 1:
                 std::cout << "Insert" << std::endl;
-                //insert code
+                std::cout << "Enter the VALUE of TREE NODE to INSERT in BST:";
+                std::cin >> val;
+                new_node->value = val;
+                obj.insertNode(new_node);
+                std::cout << std::endl;
                 break;
             case 2:
                 std::cout << "Search" << std::endl;
@@ -63,7 +117,7 @@ int main(){
                 break;
             case 4:
                 std::cout << "Print BST" << std::endl;
-                //Print BST code
+                obj.print2D(obj.root, 5);
                 break;
             case 5:
                 system("clear");
