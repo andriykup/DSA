@@ -73,6 +73,24 @@ class BST{
                 }
             }
         }
+
+        TreeNode *iterativeSearch(int value){
+            if(root == NULL){
+                return root;
+            }else{
+                TreeNode *temp = root;
+                while(temp != NULL){
+                    if(value == temp->value){
+                        return temp;
+                    }else if(value < temp->value){
+                        temp = temp->left;
+                    }else if(value > temp->value){
+                        temp = temp->right;
+                    }
+                }
+                return NULL;
+            }
+        }
 };
 
 
@@ -109,7 +127,14 @@ int main(){
                 break;
             case 2:
                 std::cout << "Search" << std::endl;
-                //search code
+                int value;
+                std::cout << "Enter the VALUE:" << std::endl;
+                std::cin >> value;
+                if(obj.iterativeSearch(value) != NULL){
+                    std::cout << "Value found" << std::endl;
+                }else{
+                    std::cout << "Value not found :(" << std::endl;
+                }
                 break;
             case 3:
                 std::cout << "delete" << std::endl;
