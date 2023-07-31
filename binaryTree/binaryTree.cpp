@@ -33,6 +33,14 @@ class BST{
             }
         }
 
+        TreeNode *minValueNode(TreeNode *node){
+            TreeNode *current = node;
+            while(current->left != NULL){
+                current = current->left;
+            }
+            return current;
+        }
+
         void print2D(TreeNode *r, int space){
             if (r == NULL)
                 return;
@@ -91,6 +99,33 @@ class BST{
                 return NULL;
             }
         }
+
+        TreeNode *deleteNode(TreeNode *root, int val){
+            TreeNode *temp;
+            if(root == NULL){
+                return root;
+            }else if(val < root->value){
+                root->left = deleteNode(root->left, val);
+            }else if(val > root->value){
+                root->right = deleteNode(root->right, val);
+            }else{
+                if(root->left == NULL){ //NODE with only rigth child or NO child
+                    temp = root->right;
+                    delete root;
+                    return temp;
+                }else if(root->right == NULL){ //NODE only with left child
+                    temp = root->right;
+                    delete root;
+                    return temp;
+                }else{ //node with TWO childs
+                    temp = minValueNode(root->right);
+                    root->value = temp->value;
+                    root->right = deleteNode(root->right, temp->value);
+                    return root;
+                }
+            }
+            return root;
+        }
 };
 
 
@@ -138,7 +173,16 @@ int main(){
                 break;
             case 3:
                 std::cout << "delete" << std::endl;
-                //delete code
+                int val;
+                std::cout << "Enter the VALUE that you wish to delete: ";
+                std::cin >> val;
+                new_node = obj.iterativeSearch(val);
+                if(new_node != NULL){
+                    obj.deleteNode(obj.root, val);
+                    std::cout << "Value deleted" << std::endl;
+                }else{
+                    std::cout << "Value NOT found" << std::endl;
+                }
                 break;
             case 4:
                 std::cout << "Print BST" << std::endl;
