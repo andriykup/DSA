@@ -41,6 +41,20 @@ class BST{
             return current;
         }
 
+        int treeHeight(TreeNode *root){ //finding height of binary tree
+            if(root == NULL){
+                return -1;
+            }else{
+                int lheight = treeHeight(root->left);
+                int rheight = treeHeight(root->right);
+                if(lheight > rheight){
+                    return lheight + 1;
+                }else{
+                    return rheight + 1;
+                }
+            }
+        }
+
         void print2D(TreeNode *r, int space){
             if (r == NULL)
                 return;
@@ -141,7 +155,8 @@ int main(){
         std::cout << "2. Search Node" << std::endl;
         std::cout << "3. Delete Node" << std::endl;
         std::cout << "4. Print BST values" << std::endl;
-        std::cout << "5. Clear screen" << std::endl;
+        std::cout << "5. Print height of binary tree" << std::endl;
+        std::cout << "6. Clear screen" << std::endl;
         std::cout << "0. Exit program" << std::endl;
 
         std::cin >> option;
@@ -189,6 +204,11 @@ int main(){
                 obj.print2D(obj.root, 5);
                 break;
             case 5:
+                // printing the height of the tree
+                std::cout << "\n" << "Height of binary tree: " << 
+                obj.treeHeight(obj.root) << "\n\n";
+                break;
+            case 6:
                 system("clear");
                 break;
             default:
