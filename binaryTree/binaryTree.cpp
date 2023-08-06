@@ -68,6 +68,15 @@ class BST{
             print2D(r->left, space);
         }
 
+        void preOrder(TreeNode *r){
+            if(r == NULL){
+                return;
+            }
+            std::cout << r->value << " ";           
+            preOrder(r->left);
+            preOrder(r->right);          
+        }
+
         void insertNode(TreeNode *new_node){
             if(root == NULL){
                 root = new_node;
@@ -156,7 +165,8 @@ int main(){
         std::cout << "3. Delete Node" << std::endl;
         std::cout << "4. Print BST values" << std::endl;
         std::cout << "5. Print height of binary tree" << std::endl;
-        std::cout << "6. Clear screen" << std::endl;
+        std::cout << "6. Pre-Order (NLR)" << std::endl;
+        std::cout << "9. Clear screen" << std::endl;
         std::cout << "0. Exit program" << std::endl;
 
         std::cin >> option;
@@ -209,6 +219,11 @@ int main(){
                 obj.treeHeight(obj.root) << "\n\n";
                 break;
             case 6:
+                // printing the height of the tree
+                std::cout << "\n" << "Pre-Order (NLR)" << std::endl;
+                obj.preOrder(obj.root);
+                break;
+            case 9:
                 system("clear");
                 break;
             default:
