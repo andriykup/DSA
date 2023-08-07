@@ -77,6 +77,24 @@ class BST{
             preOrder(r->right);          
         }
 
+        void inOrder(TreeNode *r){
+            if(r == NULL){
+                return;
+            }
+            inOrder(r->left);
+            std::cout << r->value << " ";           
+            inOrder(r->right); 
+        }
+
+        void postOrder(TreeNode *r){
+            if(r == NULL){
+                return;
+            }
+            postOrder(r->left);
+            postOrder(r->right); 
+            std::cout << r->value << " ";           
+        }
+
         void insertNode(TreeNode *new_node){
             if(root == NULL){
                 root = new_node;
@@ -166,6 +184,8 @@ int main(){
         std::cout << "4. Print BST values" << std::endl;
         std::cout << "5. Print height of binary tree" << std::endl;
         std::cout << "6. Pre-Order (NLR)" << std::endl;
+        std::cout << "7. In-Order (LNR)" << std::endl;
+        std::cout << "8. Post-Order (LRN)" << std::endl;
         std::cout << "9. Clear screen" << std::endl;
         std::cout << "0. Exit program" << std::endl;
 
@@ -222,6 +242,16 @@ int main(){
                 // printing the height of the tree
                 std::cout << "\n" << "Pre-Order (NLR)" << std::endl;
                 obj.preOrder(obj.root);
+                break;
+            case 7:
+                // printing the height of the tree
+                std::cout << "\n" << "In-Order (LNR)" << std::endl;
+                obj.inOrder(obj.root);
+                break;
+            case 8:
+                // printing the height of the tree
+                std::cout << "\n" << "Post-Order (LRN)" << std::endl;
+                obj.postOrder(obj.root);
                 break;
             case 9:
                 system("clear");
